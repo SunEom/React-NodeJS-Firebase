@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# React-NodeJS 기반 Firebase 인증 Sample app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### React와 NodeJS를 이용하여 간단한 Firebase 인증을 구현하는 예제 어플리케이션입니다.
 
-## Available Scripts
+**실제 구현 방법과는 차이가 있을 수 있습니다**
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 최초 인증 과정
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. 클라이언트가 Firebase에 Google 로그인을 요청합니다.
+2. 정상적으로 Google 로그인이 완료되었으면 Firebase로부터 ID Token을 전달받습니다.
+3. 서버에 해당 ID Token을 전달합니다.
+4. 서버에서 클라이언트로부터 전달받은 ID Token을 Firebase에 검증 요청합니다.
+5. 정상적인 토큰으로 검증되면 Firebase로부터 decode된 ID Token을 전달받습니다.
+6. 서버는 Decode된 ID Token으로 부터 얻은 uid를 DB에 저장합니다.
+7. 서버는 새로 추가된 사용자 정보를 클라이언트에 응답합니다.
+8. 클라이언트는 서버로부터 응답받은 사용자 정보를 저장합니다.
 
-### `npm test`
+   <br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 이후 인증 과정
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. 클라이언트는 가지고 있는 ID Token 값과 함께 서버에 데이터를 요청합니다.
+2. 서버에서 클라이언트로부터 전달받은 ID Token을 Firebase에 검증 요청합니다.
+3. 정상적인 토큰으로 검증되면 Firebase로부터 decode된 ID Token을 전달받습니다.
+4. 서버는 Decode된 ID Token으로 부터 얻은 uid를 통해 DB에서 클라이언트가 원하는 정보를 찾아 응답합니다.
+5. 클라이언트는 서버로부터 온 정보를 처리합니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   <br>
