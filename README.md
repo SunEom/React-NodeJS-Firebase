@@ -12,7 +12,7 @@
 
 1. 클라이언트가 Firebase에 Google 로그인을 요청합니다.
 2. 정상적으로 Google 로그인이 완료되었으면 클라이언트는 Firebase로부터 ID Token을 전달받습니다.
-3. 전달받으 ID Token을 LocalStorage에 저장합니다.
+3. 클라이언트는 전달받은 ID Token을 LocalStorage에 저장합니다.
 4. 서버에 해당 ID Token을 전달합니다.
 5. 서버에서 클라이언트로부터 전달받은 ID Token을 Firebase에 검증 요청합니다.
 6. 정상적인 토큰으로 검증되면 Firebase로부터 decode된 ID Token을 전달받습니다.
