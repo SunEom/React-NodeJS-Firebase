@@ -14,29 +14,20 @@ function App() {
     signInWithPopup(authService, provider)
       //로그인 성공
       .then((result) => {
-        authService.currentUser
-          // 현재 로그인된 유저정보에서 IdToken값을 가져옴
-          .getIdToken()
-          .then((idToken) => {
-            // IdToken을 localStorage에 저장
-            window.localStorage.setItem("idToken", idToken);
+        let idToken = result._tokenResponse.idToken;
 
-            // 로그인을 위해 IdToken을 전달
-            axios
-              .post("http://127.0.0.1:8000/login", { idToken })
-              // response.data로 유저정보를 전달받음
-              .then((response) => {
-                console.log("/login   " + response);
-                // 전달받은 유저정보를 state에 저장
-                setUser(response.data);
-              })
-              // 로그인 실패
-              .catch((error) => console.error(error));
+        // IdToken을 localStorage에 저장
+        window.localStorage.setItem("idToken", idToken);
+        // 로그인을 위해 IdToken을 서버에 전달
+        axios
+          .post("http://127.0.0.1:8000/login", { idToken })
+          .then((response) => {
+            // response.data로 유저정보를 전달받음
+            // 전달받은 유저정보를 state에 저장
+            setUser(response.data);
           })
-          //IdToken 가져오기 실패
-          .catch(function (error) {
-            // Handle error
-          });
+          // 로그인 실패
+          .catch((error) => console.error(error));
       })
       // 로그인 실패시 처리과정
       .catch((error) => {
@@ -66,7 +57,6 @@ function App() {
         .post("http://127.0.0.1:8000/getUserData", { idToken })
         .then((response) => {
           // response.data로 유저정보를 전달받음
-          console.log("/getUserData   " + response);
           // 전달받은 유저정보를 state에 저장
           setUser(response.data);
         })
@@ -76,14 +66,18 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={onLoginButtonClick}>Google로 로그인하기</button>
       {user && (
         <>
           <div>Hello {user.nickname}</div>
           <button onClick={onLogoutButtonClick}>Logout</button>
         </>
       )}
-      {!user && <div>Hello anonymous</div>}
+      {!user && (
+        <>
+          <button onClick={onLoginButtonClick}>Google로 로그인하기</button>
+          <div>Hello anonymous</div>
+        </>
+      )}
     </div>
   );
 }

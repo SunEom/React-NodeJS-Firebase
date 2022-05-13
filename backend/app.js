@@ -4,7 +4,6 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
-var indexRouter = require("./routes/index");
 const Randomstring = require("randomstring");
 const auth = require("./firebase");
 const db = require("./database");
