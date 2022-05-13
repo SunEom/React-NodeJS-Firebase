@@ -11,13 +11,14 @@
 <br>
 
 1. 클라이언트가 Firebase에 Google 로그인을 요청합니다.
-2. 정상적으로 Google 로그인이 완료되었으면 Firebase로부터 ID Token을 전달받습니다.
-3. 서버에 해당 ID Token을 전달합니다.
-4. 서버에서 클라이언트로부터 전달받은 ID Token을 Firebase에 검증 요청합니다.
-5. 정상적인 토큰으로 검증되면 Firebase로부터 decode된 ID Token을 전달받습니다.
-6. 서버는 Decode된 ID Token으로 부터 얻은 uid를 DB에 저장합니다.
-7. 서버는 새로 추가된 사용자 정보를 클라이언트에 응답합니다.
-8. 클라이언트는 서버로부터 응답받은 사용자 정보를 저장합니다.
+2. 정상적으로 Google 로그인이 완료되었으면 클라이언트는 Firebase로부터 ID Token을 전달받습니다.
+3. 전달받으 ID Token을 LocalStorage에 저장합니다.
+4. 서버에 해당 ID Token을 전달합니다.
+5. 서버에서 클라이언트로부터 전달받은 ID Token을 Firebase에 검증 요청합니다.
+6. 정상적인 토큰으로 검증되면 Firebase로부터 decode된 ID Token을 전달받습니다.
+7. 서버는 Decode된 ID Token으로 부터 얻은 uid를 DB에 저장합니다.
+8. 서버는 새로 추가된 사용자 정보를 클라이언트에 응답합니다.
+9. 클라이언트는 서버로부터 응답받은 사용자 정보를 저장합니다.
 
    <br>
 
@@ -27,7 +28,7 @@
 
 <br>
 
-1. 클라이언트는 가지고 있는 ID Token 값과 함께 서버에 데이터를 요청합니다.
+1. 클라이언트는 LocalStorage에 가지고 있는 ID Token 값과 함께 서버에 데이터를 요청합니다.
 2. 서버에서 클라이언트로부터 전달받은 ID Token을 Firebase에 검증 요청합니다.
 3. 정상적인 토큰으로 검증되면 Firebase로부터 decode된 ID Token을 전달받습니다.
 4. 서버는 Decode된 ID Token으로 부터 얻은 uid를 통해 DB에서 클라이언트가 원하는 정보를 찾아 응답합니다.
