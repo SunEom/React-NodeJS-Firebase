@@ -1,8 +1,11 @@
 import "./App.css";
-import { authService, fbApp } from "./fbConfig";
+import { authService } from "./fbConfig";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faMask } from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const provider = new GoogleAuthProvider();
@@ -66,18 +69,37 @@ function App() {
 
   return (
     <div className="App">
-      {user && (
-        <>
-          <div>Hello {user.nickname}</div>
-          <button onClick={onLogoutButtonClick}>Logout</button>
-        </>
-      )}
-      {!user && (
-        <>
-          <button onClick={onLoginButtonClick}>Google로 로그인하기</button>
-          <div>Hello anonymous</div>
-        </>
-      )}
+      {
+        // 로그인 성공시 보이는 화면
+        user && (
+          <>
+            <div style={{ marginBottom: 20 }}>Hello {user.nickname}</div>
+            <button style={{ width: 170, height: 50 }} onClick={onLogoutButtonClick}>
+              <b>Logout</b>
+            </button>
+          </>
+        )
+      }
+      {
+        // 로그인 하지 않은 상태에서 보이는 화면
+        !user && (
+          <>
+            <button onClick={onLoginButtonClick} style={{ height: 50, width: 170 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+                <FontAwesomeIcon icon={faGoogle} size="2xl" />
+                <div>
+                  <b>Google로 로그인하기</b>
+                </div>
+              </div>
+            </button>
+
+            <div style={{ marginTop: 20 }}>
+              Hello anonymous
+              <FontAwesomeIcon icon={faMask} style={{ marginLeft: 5 }} size="lg" />
+            </div>
+          </>
+        )
+      }
     </div>
   );
 }
